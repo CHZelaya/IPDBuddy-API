@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 public class Job {
@@ -27,7 +26,7 @@ public class Job {
     private Contractor contractor;
 
     @OneToMany(mappedBy = "job")
-    private List<BillableWork> billableItems = new ArrayList<>();
+    private List<BillableItemSubmission> billableItems = new ArrayList<>();
 
     public Job() {
     }
@@ -60,11 +59,11 @@ public class Job {
         this.contractor = contractor;
     }
 
-    public List<BillableWork> getBillableItems() {
+    public List<BillableItemSubmission> getBillableItems() {
         return billableItems;
     }
 
-    public void setBillableItems(List<BillableWork> billableItems) {
+    public void setBillableItems(List<BillableItemSubmission> billableItems) {
         this.billableItems = billableItems;
     }
 }
