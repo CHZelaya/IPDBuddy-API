@@ -13,10 +13,10 @@ public class BillableWork {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "job_id", referencedColumnName = "id")
-    @NotNull
-    private Job job;
+//    @ManyToOne
+//    @JoinColumn(name = "job_id", referencedColumnName = "id")
+//    @NotNull
+//    private Job job;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -32,13 +32,13 @@ public class BillableWork {
         return id;
     }
 
-    public Job getJob() {
-        return job;
-    }
-
-    public void setJob(Job job) {
-        this.job = job;
-    }
+//    public Job getJob() {
+//        return job;
+//    }
+//
+//    public void setJob(Job job) {
+//        this.job = job;
+//    }
 
     public Billables getType() {
         return type;
