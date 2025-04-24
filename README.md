@@ -1,5 +1,3 @@
-# IPDBuddy-API
-
 # IPD Buddy API
 
 [![Java](https://img.shields.io/badge/Backend-Java%2021-blue?logo=java)](https://www.oracle.com/java/)
