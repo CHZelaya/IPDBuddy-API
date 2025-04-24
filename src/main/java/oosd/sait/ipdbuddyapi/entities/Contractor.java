@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -31,9 +33,12 @@ public class Contractor {
    @Column(nullable = false)
    private String phoneNumber;
 
-    @NotNull
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "contractors")
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private User user;
+
+    @OneToMany
+    private List<Job> jobs = new ArrayList<>();
 
     //* Money and Tax related
     private BigDecimal taxRate;
