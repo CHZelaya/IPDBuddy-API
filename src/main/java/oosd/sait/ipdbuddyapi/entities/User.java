@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
+@Table(name = "app_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -16,6 +17,9 @@ public class User {
 
     @NotNull
     private String password;
+
+    @OneToOne
+    private Contractor contractor;
 
     public User() {
     }
