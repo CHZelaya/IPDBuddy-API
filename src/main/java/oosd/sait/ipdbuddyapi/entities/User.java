@@ -9,8 +9,8 @@ import java.util.UUID;
 @Table(name = "app_user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     private String email;
@@ -24,7 +24,7 @@ public class User {
     public User() {
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
