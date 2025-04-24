@@ -1,33 +1,39 @@
 package oosd.sait.ipdbuddyapi.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
 @Table(name = "contractors")
-public class ContractorEntity {
+public class Contractor {
 
     //* Contractor details
    @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+   @NotNull
    @Column(nullable = false)
     private String firstName;
 
+   @NotNull
    @Column(nullable = false)
     private String lastName;
 
+   @NotNull
    @Column(unique = true, nullable = false)
     private String email;
 
+   @NotNull
     @Column(nullable = false)
    private String phoneNumber;
 
+   @NotNull
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "contractors")
-    private UserEntity user;
+    private User user;
 
     //* Money and Tax related
     private BigDecimal taxRate;
@@ -36,7 +42,7 @@ public class ContractorEntity {
 
 
    //* Empty Constructor
-    public ContractorEntity() {
+    public Contractor() {
     }
 
     //* Getters & Setters
