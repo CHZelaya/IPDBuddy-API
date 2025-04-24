@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "contractors")
+@Table(name = "contractor")
 public class Contractor {
 
     //* Contractor details
    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
    @NotNull
    @Column(nullable = false)
@@ -37,7 +37,7 @@ public class Contractor {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private User user;
 
-    @OneToMany
+    @OneToMany(mappedBy = "contractor")
     private List<Job> jobs = new ArrayList<>();
 
     //* Money and Tax related
@@ -53,7 +53,7 @@ public class Contractor {
     //* Getters & Setters
 
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
@@ -103,5 +103,22 @@ public class Contractor {
 
     public void setSavingsRate(BigDecimal savingsRate) {
         this.savingsRate = savingsRate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
     }
 }// ! class

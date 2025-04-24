@@ -10,8 +10,8 @@ import java.util.UUID;
 public class BillableWork {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "job_id", referencedColumnName = "id")
@@ -28,7 +28,7 @@ public class BillableWork {
     public BillableWork() {
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 

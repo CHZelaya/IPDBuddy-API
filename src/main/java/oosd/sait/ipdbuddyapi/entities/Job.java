@@ -11,8 +11,8 @@ import java.util.UUID;
 @Entity
 public class Job {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     @Column(nullable = false)
@@ -26,13 +26,13 @@ public class Job {
     @JoinColumn(name = "contractor_id", referencedColumnName = "id")
     private Contractor contractor;
 
-    @OneToMany
+    @OneToMany(mappedBy = "job")
     private List<BillableWork> billableItems = new ArrayList<>();
 
     public Job() {
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
