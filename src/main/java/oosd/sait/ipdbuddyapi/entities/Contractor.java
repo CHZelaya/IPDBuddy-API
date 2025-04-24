@@ -28,10 +28,10 @@ public class Contractor {
     private String email;
 
    @NotNull
-    @Column(nullable = false)
+   @Column(nullable = false)
    private String phoneNumber;
 
-   @NotNull
+    @NotNull
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "contractors")
     private User user;
 

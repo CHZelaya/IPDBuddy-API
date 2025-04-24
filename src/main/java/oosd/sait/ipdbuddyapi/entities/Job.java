@@ -14,14 +14,6 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    /**
-     * ? What would a job need?
-     * * Date
-     * * address
-     * * A reference to the Contractor completing the job
-     * * A list of the billables
-     */
-
     @NotNull
     @Column(nullable = false)
     private LocalDate date;
@@ -37,6 +29,42 @@ public class Job {
     @OneToMany
     private List<BillableWork> billableItems = new ArrayList<>();
 
+    public Job() {
+    }
 
+    public UUID getId() {
+        return id;
+    }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Contractor getContractor() {
+        return contractor;
+    }
+
+    public void setContractor(Contractor contractor) {
+        this.contractor = contractor;
+    }
+
+    public List<BillableWork> getBillableItems() {
+        return billableItems;
+    }
+
+    public void setBillableItems(List<BillableWork> billableItems) {
+        this.billableItems = billableItems;
+    }
 }
