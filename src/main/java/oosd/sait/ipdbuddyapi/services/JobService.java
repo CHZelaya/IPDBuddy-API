@@ -43,50 +43,62 @@ public class JobService {
         List<BillableItemsSummary> itemsSummaryList = new ArrayList<>();
         BigDecimal grandTotal = BigDecimal.ZERO;
 
-        for(BillableItemsRequest itemsRequest : requestDTO.getItemsRequests()) {
-            Billables billablesType = Billables.valueOf(itemsRequest.getBillableType());
+        List<BillableItemsRequest> itemsRequests = requestDTO.getItemsRequests();
 
-            //* Calculate quantity * rate for each task done
-            BigDecimal rate = billablesType.getRate();
-            BigDecimal quantity = BigDecimal.valueOf(itemsRequest.getQuantity());
-            BigDecimal total = rate.multiply(quantity);
+        if (itemsRequests != null && !itemsRequests.isEmpty()) {
+            for (BillableItemsRequest itemsRequest : requestDTO.getItemsRequests()) {
+                Billables billablesType = Billables.valueOf(itemsRequest.getBillableType());
 
-            BillableItemSubmission submission = new BillableItemSubmission();
-            submission.setJob(job);
-            submission.setBillableType(billablesType);
-            submission.setQuantity(itemsRequest.getQuantity());
-            submission.setNotes(itemsRequest.getNotes());
-            submission.setTotalPrice(total);
+                //* Calculate quantity * rate for each task done
+                BigDecimal rate = billablesType.getRate();
+                BigDecimal quantity = BigDecimal.valueOf(itemsRequest.getQuantity());
+                BigDecimal total = rate.multiply(quantity);
 
-            billableItemSubmissionRepo.save(submission);
+                //* Helper method(s) to check for special cases and amend total based on special cases
+                if (billablesType.equals(Billables.FIRE_CAULKING)) {
+                    total = capFireCaulkingPay(rate, quantity);
+                }
 
-            //* Summary will be sent to the front-end to be printed on the PDF
-            itemsSummaryList.add(new BillableItemsSummary(
-                    billablesType.name(),
-                    billablesType.getDescription(),
-                    itemsRequest.getQuantity(),
-                    rate,
-                    total,
-                    job.getAddress(),
-                    job.getDate()
-            ));
+                BillableItemSubmission submission = new BillableItemSubmission();
+                submission.setJob(job);
+                submission.setBillableType(billablesType);
+                submission.setQuantity(itemsRequest.getQuantity());
+                submission.setNotes(itemsRequest.getNotes());
+                submission.setTotalPrice(total);
 
-            grandTotal = grandTotal.add(total);
+                billableItemSubmissionRepo.save(submission);
 
-            JobSubmissionResponseDTO responseDTO = new JobSubmissionResponseDTO();
-            responseDTO.setBillableItemsSummary(itemsSummaryList);
-            responseDTO.setGrandTotalAmount(grandTotal);
+                //* Summary will be sent to the front-end to be printed on the PDF
+                itemsSummaryList.add(new BillableItemsSummary(
+                        billablesType.name(),
+                        billablesType.getDescription(),
+                        itemsRequest.getQuantity(),
+                        rate,
+                        total,
+                        job.getAddress(),
+                        job.getDate()
+                ));
 
-
+                grandTotal = grandTotal.add(total);
+            }
         }
 
+        JobSubmissionResponseDTO response = new JobSubmissionResponseDTO(job.getId(), "Job processed successfully");
+        response.setBillableItemsSummary(itemsSummaryList);
+        response.setGrandTotalAmount(grandTotal);
+        response.setTaxAmount(grandTotal.multiply(contractor.getTaxRate()));
+        response.setSavingsAmount(grandTotal.multiply(contractor.getSavingsRate()));
 
+        return response;
+    }
 
+    private BigDecimal capFireCaulkingPay(BigDecimal rate, BigDecimal quantity) {
+        final BigDecimal maxPay = new BigDecimal("75.00");
+        final BigDecimal total = rate.multiply(quantity);
 
+        //* Capping pay at $75 for Fire Caulking.
+        return total.compareTo(maxPay) > 0 ? maxPay : total;
 
-
-
-        return null;
     }
 
 }//!Class

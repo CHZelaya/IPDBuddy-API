@@ -1,5 +1,4 @@
 package oosd.sait.ipdbuddyapi.enums;
-
 import java.math.BigDecimal;
 
 public enum Billables {
@@ -28,15 +27,17 @@ public enum Billables {
     FIRE_CAULKING_MATTAMY_HOUSE(new BigDecimal("25.00"), "Fire Caulking Mattamy House"),
 
     SCRAP_OUT(new BigDecimal("25.00"), "Scrap Out per House"),
-    SUITED_MECH_ROOM_RES_BAR(new BigDecimal("65.00"), "Suited Mech Rooom, Res Bar install"),
+    SUITED_MECH_ROOM_RES_BAR(new BigDecimal("65.00"), "Suited Mech Room, Res Bar install"),
 
     //* Suited Mech Room Ceilings
     //* $500 for Steel, $300 for board only, if two mechs, second is $150
     STEEL_FRAMING_AND_BOARD(new BigDecimal("500.00"), "Steel Framing and Board"),
     BOARD_ONLY(new BigDecimal("300.00"), "Board Only"),
+    SECOND_MECH_ROOM(new BigDecimal("150.00"), "Second Mech Room"),
 
     //* If two mech room ceiling, second is $100.
-    FIRE_TAPING_MECH_ROOM_CEILING(new BigDecimal("225.00"), "Fire Taping Mech Room, ceiling");
+    FIRE_TAPING_MECH_ROOM_CEILING(new BigDecimal("225.00"), "Fire Taping Mech Room, ceiling"),
+    FIRE_TAPING_SECOND_MECH_ROOM(new BigDecimal("100.00)"), "Fire Taping Second Mech Room");
 
 
     private final BigDecimal rate;

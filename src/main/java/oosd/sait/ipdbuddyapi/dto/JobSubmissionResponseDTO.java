@@ -20,4 +20,6 @@ public class JobSubmissionResponseDTO {
 
     private List<BillableItemsSummary> billableItemsSummary;
 
+    public JobSubmissionResponseDTO(Long id, String jobProcessedSuccesfully) {
+    }
 }
