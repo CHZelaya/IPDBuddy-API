@@ -37,7 +37,7 @@ public enum Billables {
 
     //* If two mech room ceiling, second is $100.
     FIRE_TAPING_MECH_ROOM_CEILING(new BigDecimal("225.00"), "Fire Taping Mech Room, ceiling"),
-    FIRE_TAPING_SECOND_MECH_ROOM(new BigDecimal("100.00)"), "Fire Taping Second Mech Room");
+    FIRE_TAPING_SECOND_MECH_ROOM(new BigDecimal("100.00"), "Fire Taping Second Mech Room");
 
 
     private final BigDecimal rate;
