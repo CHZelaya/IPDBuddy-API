@@ -19,7 +19,7 @@ public class BillableItemSubmission {
 
     private BigDecimal rate;
 
-    private double totalPrice;
+    private BigDecimal totalPrice;
 
     private String notes;
 
@@ -58,7 +58,7 @@ public class BillableItemSubmission {
         this.rate = rate;
     }
 
-    public double getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
