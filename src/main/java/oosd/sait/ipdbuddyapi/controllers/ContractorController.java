@@ -1,5 +1,6 @@
 package oosd.sait.ipdbuddyapi.controllers;
 
+import oosd.sait.ipdbuddyapi.dto.ContractorDTO;
 import oosd.sait.ipdbuddyapi.services.ContractorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +16,17 @@ public class ContractorController {
     @Autowired
     private ContractorService contractorService;
 
-    @GetMapping("/profile/{id}")
-    public ResponseEntity<?> getProfile(@PathVariable int id) {
-        try {
-
-        } catch (RuntimeException e) {
-
-        }
-
-    }
+//    @GetMapping("/profile/{id}")
+//    public ResponseEntity<?> getProfile(@PathVariable int id) {
+//        try {
+//            ContractorDTO contractorDTO = contractorService
+//
+//        } catch (RuntimeException e) {
+//
+//        }
+//
+//        return ResponseEntity.ok().build();
+//    };
 
 
 
