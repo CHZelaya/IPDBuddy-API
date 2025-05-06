@@ -15,26 +15,50 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private JWTAuthenticationFilter jwtAuthenticationFilter;
-
-    public SecurityConfig(JWTAuthenticationFilter jwtAuthenticationFilter) {
-        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-    }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Disable CSRF for testing/API clients
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/login").permitAll()
+                        .requestMatchers("/api/v1/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-                //.httpBasic(Customizer.withDefaults()); // Basic Auth for Postman
-
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(Customizer.withDefaults())
+                );
         return http.build();
     }
+
+
+
+
+
+
+
+
+
+
+
+//    @Autowired
+//    private JWTAuthenticationFilter jwtAuthenticationFilter;
+//
+//    public SecurityConfig(JWTAuthenticationFilter jwtAuthenticationFilter) {
+//        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+//    }
+//
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http
+//                .csrf(csrf -> csrf.disable()) // Disable CSRF for testing/API clients
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/api/v1/auth/login").permitAll()
+//                        .anyRequest().authenticated()
+//                )
+//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+//                //.httpBasic(Customizer.withDefaults()); // Basic Auth for Postman
+//
+//        return http.build();
+//    }
 
 
 }
