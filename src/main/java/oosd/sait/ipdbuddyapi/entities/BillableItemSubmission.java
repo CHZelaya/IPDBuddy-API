@@ -1,6 +1,7 @@
 package oosd.sait.ipdbuddyapi.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import oosd.sait.ipdbuddyapi.enums.Billables;
 
 import java.math.BigDecimal;
@@ -15,14 +16,18 @@ public class BillableItemSubmission {
     @Enumerated(EnumType.STRING)
     private Billables billableType;
 
+    @NotNull
     private int quantity;
 
+    @NotNull
     private BigDecimal rate;
 
+    @NotNull
     private BigDecimal totalPrice;
 
     private String notes;
 
+    @NotNull
     @ManyToOne
     private Job job;
 

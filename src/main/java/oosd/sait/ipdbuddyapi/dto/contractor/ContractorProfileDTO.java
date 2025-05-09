@@ -1,4 +1,4 @@
-package oosd.sait.ipdbuddyapi.dto;
+package oosd.sait.ipdbuddyapi.dto.contractor;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class ContractorDTO {
+public class ContractorProfileDTO {
 
     //Properties and validation
 

@@ -1,8 +1,9 @@
-package oosd.sait.ipdbuddyapi.dto;
+package oosd.sait.ipdbuddyapi.dto.job;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import oosd.sait.ipdbuddyapi.dto.billable.BillableItemsSummary;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,6 +21,6 @@ public class JobSubmissionResponseDTO {
 
     private List<BillableItemsSummary> billableItemsSummary;
 
-    public JobSubmissionResponseDTO(Long id, String jobProcessedSuccesfully) {
+    public JobSubmissionResponseDTO(Long id) {
     }
 }
