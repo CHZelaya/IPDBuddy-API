@@ -1,4 +1,4 @@
-package oosd.sait.ipdbuddyapi.dto;
+package oosd.sait.ipdbuddyapi.dto.billable;
 
 import lombok.*;
 
@@ -10,8 +10,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BillableItemsSummary {
-
-    // This class will send the response data to the front end, which will be used to populate the PDF using a front end PDF library to allow the user to download it
 
     private String type;
     private String description;

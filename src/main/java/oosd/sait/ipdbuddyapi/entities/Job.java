@@ -2,11 +2,18 @@ package oosd.sait.ipdbuddyapi.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 public class Job {
     @Id
@@ -21,6 +28,7 @@ public class Job {
     @Column(nullable = false)
     private String address;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "contractor_id", referencedColumnName = "id")
     private Contractor contractor;

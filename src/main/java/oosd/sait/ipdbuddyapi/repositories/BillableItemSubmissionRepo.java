@@ -4,6 +4,9 @@ import oosd.sait.ipdbuddyapi.entities.BillableItemSubmission;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import java.util.List;
+
 @RepositoryRestResource
 public interface BillableItemSubmissionRepo extends JpaRepository<BillableItemSubmission, Integer> {
+    List<BillableItemSubmission> findAllByJob_Id(Long jobId);
 }

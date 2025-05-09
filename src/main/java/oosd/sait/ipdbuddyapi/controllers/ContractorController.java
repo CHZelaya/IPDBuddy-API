@@ -1,38 +1,43 @@
 package oosd.sait.ipdbuddyapi.controllers;
 
-import oosd.sait.ipdbuddyapi.dto.ContractorDTO;
+import jakarta.validation.Valid;
+import oosd.sait.ipdbuddyapi.dto.contractor.ContractorProfileUpdateDTO;
+import oosd.sait.ipdbuddyapi.entities.Contractor;
+import oosd.sait.ipdbuddyapi.repositories.ContractorRepo;
 import oosd.sait.ipdbuddyapi.services.ContractorService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/contractor")
 public class ContractorController {
 
-    @Autowired
-    private ContractorService contractorService;
+    private final ContractorService contractorService;
 
-//    @GetMapping("/profile/{id}")
-//    public ResponseEntity<?> getProfile(@PathVariable int id) {
-//        try {
-//            ContractorDTO contractorDTO = contractorService
-//
-//        } catch (RuntimeException e) {
-//
-//        }
-//
-//        return ResponseEntity.ok().build();
-//    };
+    private final ContractorRepo contractorRepo;
+    public ContractorController(ContractorRepo contractorRepo, ContractorService contractorService) {
+        this.contractorRepo = contractorRepo;
+        this.contractorService = contractorService;
+    }
 
+    @GetMapping("/me")
+    public ResponseEntity<Contractor> getMyProfile(@AuthenticationPrincipal OidcUser user) {
+      String email = user.getEmail();
+      return contractorRepo.findByEmail(email).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    };
 
+    @PutMapping("/me")
+    public ResponseEntity<?> updateMyProfile(
+            @AuthenticationPrincipal OidcUser user,
+            @Valid @RequestBody ContractorProfileUpdateDTO dto) {
 
+        String email = user.getEmail();
 
-
-
-
+        return contractorService.updateContracterByEmail(email, dto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
 }//! Class
