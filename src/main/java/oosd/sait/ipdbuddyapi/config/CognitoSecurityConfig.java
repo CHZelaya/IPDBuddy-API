@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
+
 /**
  * Class to configure AWS Cognito as an OAuth 2.0 authorizer with Spring Security.
  * In this configuration, we specify our OAuth Client.
@@ -20,15 +21,20 @@ import org.springframework.security.web.SecurityFilterChain;
 public class CognitoSecurityConfig {
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        CognitoLogoutHandler cognitoLogoutHandler = new CognitoLogoutHandler();
+    public CognitoLogoutHandler cognitoLogoutHandler() {
+        return new CognitoLogoutHandler();
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http, /*SecurityFilterChain oauth2SecurityFilterChain,*/  CognitoLogoutHandler cognitoLogoutHandler) throws Exception {
+        //CognitoLogoutHandler cognitoLogoutHandler = new CognitoLogoutHandler();
 
         http.csrf(Customizer.withDefaults())
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/").permitAll()
                         .anyRequest()
                         .authenticated())
-                .oauth2Login(Customizer.withDefaults())
+                .oauth2Login(oauth2 -> oauth2.defaultSuccessUrl("http://localhost:3000/dashboard", true))
                 .logout(logout -> logout.logoutSuccessHandler(cognitoLogoutHandler));
         return http.build();
     }

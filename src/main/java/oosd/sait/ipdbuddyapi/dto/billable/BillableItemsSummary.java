@@ -14,7 +14,7 @@ public class BillableItemsSummary {
     private String type;
     private String description;
     private int quantity;
-    private BigDecimal unitPrice;
+    private BigDecimal rate;
     private BigDecimal total;
     private String jobAddress;
     private LocalDate jobDate;
