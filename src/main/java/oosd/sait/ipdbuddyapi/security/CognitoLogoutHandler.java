@@ -2,6 +2,7 @@ package oosd.sait.ipdbuddyapi.security;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 import org.springframework.web.util.UriComponentsBuilder;

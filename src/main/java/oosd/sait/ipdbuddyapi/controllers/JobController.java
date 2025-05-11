@@ -54,7 +54,7 @@ public class JobController {
      * @param requestDTO The job details including billable items
      * @return Response with the summmary of the submitted job and calculation results.
      */
-    @PostMapping("/jobs")
+    @PostMapping("/jobs/submit")
     public ResponseEntity<JobSubmissionResponseDTO> submitJob(
             @AuthenticationPrincipal OidcUser user,
             @RequestBody @Valid JobSubmissionRequestDTO requestDTO) {
